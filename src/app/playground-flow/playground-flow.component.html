@@ -1,0 +1,82 @@
+<!--
+  RACE CONDITION BUG REPRODUCTION STEPS:
+  This component has a race condition where a validation response from a fast, invalid input can incorrectly apply its error state to the UI, while a different, slow-but-valid request resolves later.
+
+  Reproduce race condition Steps:
+  1. First, type "stale" into the input box. A slow network request will begin in the background.
+  2. Immediately (within 5 seconds), change the input to the invalid name "taken". This starts a fast network request.
+  3. Do nothing else. Just watch the UI.
+
+  What You Will See (The Bug):
+  * First, the fast request for "taken" will return an error, and the UI will correctly show the red "This name is already taken." error message.
+  * A few seconds later, the slow, original request for "stale" will finally complete. Then the component will save it, updating the text in the input box back to "stale".
+  * However, the component fails to clear the error from the "taken" request. The final, incorrect state of the UI will be the text "stale" in the input box, with the "This name is already taken." error message displayed beneath it.
+-->
+
+<div class="container">
+  <h2>Edit Flow Name</h2>
+
+  <div
+    class="card"
+    style="
+      background-color: #fff3cd;
+      border-color: #ffeaa7;
+      margin-bottom: 2rem;
+    "
+  >
+    <div
+      class="card-header"
+      style="background-color: #ffeaa7; border-bottom-color: #ffeaa7"
+    >
+      <strong>🐛 Race Condition Bug</strong>
+    </div>
+    <div class="card-body">
+      <p style="margin-top: 0"><strong>How to reproduce:</strong></p>
+      <ol>
+        <li>Type <code>"stale"</code> in the input (starts slow request)</li>
+        <li>
+          Immediately change to <code>"taken"</code> (starts fast request)
+        </li>
+        <li>Wait and observe the UI</li>
+      </ol>
+      <p>
+        <strong>Expected bug:</strong> Input will show <code>"stale"</code> but
+        the error message "This name is already taken." will still be displayed
+        incorrectly.
+      </p>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="flowName">Flow Name</label>
+    <input
+      id="flowName"
+      type="text"
+      class="form-control"
+      [class.is-invalid]="isNameTaken"
+      [ngModel]="flow.Name"
+      (ngModelChange)="onNameChange($event)"
+    />
+    <!-- [disabled]="isSaving" -->
+
+    <div *ngIf="isSaving" class="form-status">Saving...</div>
+
+    <div *ngIf="isNameTaken" class="invalid-feedback">
+      This name is already taken.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">Current State</div>
+    <div class="card-body">
+      <pre>{{ flow | json }}</pre>
+    </div>
+  </div>
+
+  <div class="card backend-state">
+    <div class="card-header">"Backend" State</div>
+    <div class="card-body">
+      <pre>{{ lastSavedFlow | json }}</pre>
+    </div>
+  </div>
+</div>

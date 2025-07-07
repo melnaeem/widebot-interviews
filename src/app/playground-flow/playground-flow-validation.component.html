@@ -1,0 +1,82 @@
+<div class="flow-validation-form">
+  <h3>Form Validation (Problematic - Template-Driven)</h3>
+  <p class="text-muted">
+    This version uses template-driven forms with manual validation logic
+  </p>
+
+  <div class="form-group">
+    <label for="flowName">Flow Name</label>
+    <input
+      id="flowName"
+      type="text"
+      class="form-control"
+      [class.is-invalid]="nameError"
+      [(ngModel)]="flowName"
+      (input)="onNameChange()"
+      maxlength="50"
+      placeholder="Enter flow name"
+    />
+    <div class="invalid-feedback" *ngIf="nameError">
+      {{ nameError }}
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="flowDescription">Description</label>
+    <textarea
+      id="flowDescription"
+      class="form-control"
+      [class.is-invalid]="descriptionError"
+      [(ngModel)]="flowDescription"
+      (input)="onDescriptionChange()"
+      rows="3"
+      maxlength="500"
+      placeholder="Enter flow description"
+    ></textarea>
+    <div class="invalid-feedback" *ngIf="descriptionError">
+      {{ descriptionError }}
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="flowTags">Tags (comma-separated)</label>
+    <input
+      id="flowTags"
+      type="text"
+      class="form-control"
+      [class.is-invalid]="tagsError"
+      [(ngModel)]="flowTags"
+      (input)="onTagsChange()"
+      placeholder="Enter tags separated by commas"
+    />
+    <div class="invalid-feedback" *ngIf="tagsError">
+      {{ tagsError }}
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <button
+      type="button"
+      class="btn btn-primary"
+      [disabled]="!canSubmit()"
+      (click)="saveFlow()"
+    >
+      <span
+        *ngIf="isSaving"
+        class="spinner-border spinner-border-sm mr-2"
+      ></span>
+      {{ isSaving ? "Saving..." : "Save Flow" }}
+    </button>
+  </div>
+
+  <div class="mt-3">
+    <h5>Template-Driven Issues:</h5>
+    <ul class="text-muted small">
+      <li>❌ Manual validation logic scattered everywhere</li>
+      <li>❌ Have to remember to call validation methods</li>
+      <li>❌ Hard to unit test validation logic</li>
+      <li>❌ No centralized error handling</li>
+      <li>❌ Difficult to maintain and extend</li>
+    </ul>
+  </div>
+</div>

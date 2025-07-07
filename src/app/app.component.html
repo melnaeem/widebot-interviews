@@ -1,0 +1,43 @@
+<div class="container mt-4">
+  <h1>Frontend Architect Interview</h1>
+
+  <nav class="mb-4">
+    <h5>Simple Race Conditions (Name Change)</h5>
+    <div class="btn-group mb-3" role="group">
+      <a
+        routerLink="/race-conditions-simple"
+        class="btn btn-outline-danger"
+        routerLinkActive="active"
+      >
+        🐛 Simple Race Conditions
+      </a>
+      <a
+        routerLink="/race-conditions-simple-fixed"
+        class="btn btn-outline-success"
+        routerLinkActive="active"
+      >
+        ✅ Simple - Fixed Version
+      </a>
+    </div>
+
+    <h5>Complex Validation Race Conditions</h5>
+    <div class="btn-group" role="group">
+      <a
+        routerLink="/validation-race-conditions"
+        class="btn btn-outline-danger"
+        routerLinkActive="active"
+      >
+        🐛 Validation challenges
+      </a>
+      <a
+        routerLink="/validation-race-conditions-fixed"
+        class="btn btn-outline-success"
+        routerLinkActive="active"
+      >
+        ✅ Validation - Fixed (Reactive Forms)
+      </a>
+    </div>
+  </nav>
+
+  <router-outlet></router-outlet>
+</div>

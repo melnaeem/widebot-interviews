@@ -1,0 +1,76 @@
+<div class="flow-validation-form">
+  <h3>Form Validation (Fixed - Reactive Forms)</h3>
+  <p class="text-muted">
+    This version uses Angular Reactive Forms with clean validation patterns
+  </p>
+
+  <form [formGroup]="flowForm" (ngSubmit)="saveFlow()">
+    <div class="form-group">
+      <label for="name">Flow Name</label>
+      <input
+        id="name"
+        type="text"
+        class="form-control"
+        [class.is-invalid]="hasError('name')"
+        formControlName="name"
+        maxlength="50"
+        placeholder="Enter flow name"
+      />
+      <div class="invalid-feedback" *ngIf="hasError('name')">
+        {{ getErrorMessage("name") }}
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea
+        id="description"
+        class="form-control"
+        [class.is-invalid]="hasError('description')"
+        formControlName="description"
+        rows="3"
+        maxlength="500"
+        placeholder="Enter flow description"
+      ></textarea>
+      <div class="invalid-feedback" *ngIf="hasError('description')">
+        {{ getErrorMessage("description") }}
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="tags">Tags (comma-separated)</label>
+      <input
+        id="tags"
+        type="text"
+        class="form-control"
+        [class.is-invalid]="hasError('tags')"
+        formControlName="tags"
+        placeholder="Enter tags separated by commas"
+      />
+      <div class="invalid-feedback" *ngIf="hasError('tags')">
+        {{ getErrorMessage("tags") }}
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-success" [disabled]="!canSubmit()">
+        <span
+          *ngIf="isSaving"
+          class="spinner-border spinner-border-sm mr-2"
+        ></span>
+        {{ isSaving ? "Saving..." : "Save Flow" }}
+      </button>
+    </div>
+  </form>
+
+  <div class="mt-3">
+    <h5>Reactive Forms Advantages:</h5>
+    <ul class="text-muted small">
+      <li>✅ Declarative validation rules</li>
+      <li>✅ Built-in form state management</li>
+      <li>✅ Easier testing with pure functions</li>
+      <li>✅ Better TypeScript support</li>
+      <li>✅ Centralized error handling</li>
+    </ul>
+  </div>
+</div>
