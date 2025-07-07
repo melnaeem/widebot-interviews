@@ -11,7 +11,7 @@ const flowMock: PlaygroundFlow = {
 @Component({
   selector: 'app-playground-flow-validation',
   templateUrl: './playground-flow-validation.component.html',
-  styleUrls: ['./playground-flow.component.css'],
+  styleUrls: ['../playground-flow/playground-flow.component.css'],
 })
 export class PlaygroundFlowValidationComponent implements OnInit {
   @Input() flow: PlaygroundFlow = flowMock;

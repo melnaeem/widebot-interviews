@@ -5,7 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { PlaygroundFlowComponent } from './playground-flow/playground-flow.component';
-import { PlaygroundFlowValidationComponent } from './playground-flow/playground-flow-validation.component';
+import { PlaygroundFlowValidationComponent } from './playground-flow-validation/playground-flow-validation.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/race-conditions-simple', pathMatch: 'full' },
